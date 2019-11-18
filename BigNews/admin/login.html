@@ -37,13 +37,38 @@
       </form>
     </div>
   </div>
+  <!-- 引用模态框 -->
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Launch demo modal
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     $(function () {
       $(".input_sub").click(function (e) {
+
         e.preventDefault();
         if ($(".input_txt").val().trim() === "" || $(".input_pass").val().trim() === "") {
-          alert("用户名或密码为空，请输入");
+          $('#myModal').modal();
+          $(".modal-body").text("亲，用户名或密码不能为空哦");
           return
         } else {
           $.post({
@@ -56,10 +81,14 @@
             success: function (res) {
               console.log(res);
               if (res.code === 200) {
+                $('#myModal').modal();
+                $(".modal-body").text(res.msg);
                 window.location.href = 'index.html'
-              } else (
-                alert("密码或用户名错误")
-              )
+              } else {
+                // alert("密码或用户名错误")
+                $('#myModal').modal();
+                $(".modal-body").text(res.msg);
+              }
             }
           })
         }
