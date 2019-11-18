@@ -80,15 +80,21 @@
             dataType: "json",
             success: function (res) {
               console.log(res);
+              $('#myModal').modal();
+              $(".modal-body").text(res.msg);
               if (res.code === 200) {
-                $('#myModal').modal();
-                $(".modal-body").text(res.msg);
-                window.location.href = 'index.html'
-              } else {
-                // alert("密码或用户名错误")
-                $('#myModal').modal();
-                $(".modal-body").text(res.msg);
+                // $('#myModal').modal();
+                // $(".modal-body").text(res.msg);
+                // 模态框点击确定时，触发跳转页面的事件
+                $('#myModal').on('hidden.bs.modal', function (e) {
+                  window.location.href = 'index.html';
+                })
               }
+              // else {
+              //   // alert("密码或用户名错误")
+              //   $('#myModal').modal();
+              //   $(".modal-body").text(res.msg);
+              // }
             }
           })
         }
