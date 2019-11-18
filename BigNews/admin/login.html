@@ -38,6 +38,34 @@
     </div>
   </div>
 
+  <script>
+    $(function () {
+      $(".input_sub").click(function (e) {
+        e.preventDefault();
+        if ($(".input_txt").val().trim() === "" || $(".input_pass").val().trim() === "") {
+          alert("用户名或密码为空，请输入");
+          return
+        } else {
+          $.post({
+            url: "http://localhost:8080/api/v1/admin/user/login",
+            data: {
+              username: $(".input_txt").val().trim(),
+              password: $(".input_pass").val().trim()
+            },
+            dataType: "json",
+            success: function (res) {
+              console.log(res);
+              if (res.code === 200) {
+                window.location.href = 'index.html'
+              } else (
+                alert("密码或用户名错误")
+              )
+            }
+          })
+        }
+      })
+    })
+  </script>
 </body>
 
 </html>
