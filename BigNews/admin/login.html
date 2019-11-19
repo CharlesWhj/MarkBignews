@@ -86,6 +86,10 @@
                 // $('#myModal').modal();
                 // $(".modal-body").text(res.msg);
                 // 模态框点击确定时，触发跳转页面的事件
+                // 当登录成功后，获取token，并储存到本地储存中去
+                window.localStorage.setItem("token", res.token);
+                console.log(localStorage);
+
                 $('#myModal').on('hidden.bs.modal', function (e) {
                   window.location.href = 'index.html';
                 })
